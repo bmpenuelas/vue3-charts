@@ -52,7 +52,8 @@ export interface Canvas {
   height: number
 }
 
-export type Domain = [string | number, string | number]
+export type DomainExtent = [number, number] | [undefined, undefined]
+export type Domain = DomainExtent | ((extent: DomainExtent) => DomainExtent)
 export type Direction = 'horizontal' | 'vertical' | 'circular'
 export type ScaleType = 'band' | 'linear'
 

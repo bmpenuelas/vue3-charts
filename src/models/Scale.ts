@@ -92,19 +92,11 @@ export default class Scale {
     const valueMax: number = max(stackedData, (arr) => max(arr, (x) => max(x))) || 0
     const valueMin: number = min(stackedData, (arr) => min(arr, (x) => min(x))) || 0
 
-    const [dataMin, dataMax] = extent(Array.from(new Set(values.concat([valueMin, valueMax]))))
-    // eslint-disable-next-line no-eval
-    const yMin = eval(`
-      let dataMin = ${dataMin || 0}
-      ${domain[0]}
-    `)
+    if (typeof domain === 'function') {
+      const ext = extent(Array.from(new Set(values.concat([valueMin, valueMax]))))
+      return domain(ext)
+    }
 
-    // eslint-disable-next-line no-eval
-    const yMax = eval(`
-      let dataMax = ${dataMax || 0}
-      ${domain[1]}
-    `)
-
-    return [yMin, yMax]
+    return domain
   }
 }
