@@ -16,11 +16,11 @@ const defaultConfig: ChartConfig = {
   direction: 'horizontal',
   axis: {
     primary: {
-      domain: ['dataMin', 'dataMax'],
+      domain: (x) => x,
       type: 'band'
     },
     secondary: {
-      domain: ['dataMin', 'dataMax'],
+      domain: (x) => x,
       type: 'linear'
     }
   },

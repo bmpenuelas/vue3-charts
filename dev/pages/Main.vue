@@ -85,7 +85,7 @@
       <div class="ml-2">
         <Chart
           :data="data2"
-          :axis="{ primary: { type: 'linear', domain: ['0', 'dataMax'] } }"
+          :axis="{ primary: { type: 'linear', domain: ([a, b]) => [0, b] } }"
           :margin="margin"
           :direction="direction"
         >
@@ -255,7 +255,7 @@ export default defineComponent({
         }
       },
       secondary: {
-        domain: ['dataMin', 'dataMax + 100'],
+        domain: ([a, b]) => [a, b + 100],
         type: 'linear',
         ticks: 4,
         // tickValues: [-500, 0, 500, 1500, 3000],
