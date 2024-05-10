@@ -43,14 +43,14 @@
                 :dataKeys="['name', 'pl']"
                 :lineStyle="{
                   stroke: '#e63946',
-                  strokeWidth: 2
+                  strokeWidth: 2,
                 }"
                 :dotStyle="
                   ({ active }) => ({
                     stroke: 'red',
                     strokeWidth: 2,
                     fill: 'white',
-                    r: active ? 6 : 4
+                    r: active ? 6 : 4,
                   })
                 "
               />
@@ -69,7 +69,7 @@
                   name: { hide: true },
                   inc: { color: '#48cae4' },
                   pl: { color: '#0077b6' },
-                  avg: { label: 'averange', color: '#0096c7' }
+                  avg: { label: 'averange', color: '#0096c7' },
                 }"
               />
             </template>
@@ -118,7 +118,7 @@
               :lineStyle="{
                 strokeWidth: 2,
                 stroke: 'red',
-                strokeDasharray: '2,3'
+                strokeDasharray: '2,3',
               }"
             />
             <!-- <Group :stacked="true">
@@ -145,11 +145,15 @@
           :data="data"
           :config="{ controlHover: false }"
           :margin="margin"
-          :axis="{ primary: { hide: true }, secondary: { hide: true }}"
+          :axis="{ primary: { hide: true }, secondary: { hide: true } }"
           :size="{ width: 400, height: 400 }"
         >
           <template #layers>
-            <Pie :dataKeys="['name', 'avg']" sort="custom" :sort-func="randomSort" />
+            <Pie
+              :dataKeys="['name', 'avg']"
+              sort="custom"
+              :sort-func="randomSort"
+            />
             <!-- </Group> -->
           </template>
           <template #widgets>
@@ -163,11 +167,14 @@
           :data="data3"
           :config="{ controlHover: false }"
           :margin="margin"
-          :axis="{ primary: { hide: true }, secondary: { hide: true }}"
+          :axis="{ primary: { hide: true }, secondary: { hide: true } }"
           :size="{ width: 400, height: 400 }"
         >
           <template #layers>
-            <Pie :dataKeys="['name', 'inc']" :pie-style="{ innerRadius: 100, padAngle: 0.05 }" />
+            <Pie
+              :dataKeys="['name', 'inc']"
+              :pie-style="{ innerRadius: 100, padAngle: 0.05 }"
+            />
             <!-- </Group> -->
           </template>
           <template #widgets>
@@ -185,8 +192,8 @@
               :dataKeys="['key', 'value']"
               :data="data4"
               :rcStyle="
-                r => ({
-                  fill: r.color
+                (r) => ({
+                  fill: r.color,
                 })
               "
             >
@@ -222,71 +229,71 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import * as mockup from '@/mockup'
-import * as r from 'ramda'
+import { defineComponent, ref } from "vue";
+import * as mockup from "@/mockup";
+import * as r from "ramda";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   setup() {
-    const data = ref<any>(mockup.plByMonth)
-    const data2 = ref(r.sortBy(r.prop('nbOfTrades'), mockup.trades))
-    const data3 = ref<any>(mockup.plMonthYear)
-    const data4 = ref(mockup.tags)
+    const data = ref<any>(mockup.plByMonth);
+    const data2 = ref(r.sortBy(r.prop("nbOfTrades"), mockup.trades));
+    const data3 = ref<any>(mockup.plMonthYear);
+    const data4 = ref(mockup.tags);
 
-    const direction = ref('horizontal')
+    const direction = ref("horizontal");
     const margin = ref({
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0
-    })
+      bottom: 0,
+    });
 
     const axis = ref({
       primary: {
-        type: 'band',
-        tickValues: ['Jan', 'Feb', 'Jul'],
+        type: "band",
+        tickValues: ["Jan", "Feb", "Jul"],
         format: (val: string) => {
-          if (val === 'Feb') {
-            return '😜'
+          if (val === "Feb") {
+            return "😜";
           }
 
-          return val
-        }
+          return val;
+        },
       },
       secondary: {
         domain: ([a, b]) => [a, b + 100],
-        type: 'linear',
+        type: "linear",
         ticks: 4,
         // tickValues: [-500, 0, 500, 1500, 3000],
         format: (val: string) => {
-          return val
-        }
-      }
-    })
+          return val;
+        },
+      },
+    });
 
     function add() {
       const val = {
-        name: 'M' + data.value.length,
+        name: "M" + data.value.length,
         pl: Math.random() * 3000,
         avg: Math.random() * 1000,
-        inc: Math.random() * 500
-      }
+        inc: Math.random() * 500,
+      };
 
-      data.value = [...data.value, val]
+      data.value = [...data.value, val];
     }
 
     function updateConfig() {
       direction.value =
-        direction.value === 'horizontal' ? 'vertical' : 'horizontal'
+        direction.value === "horizontal" ? "vertical" : "horizontal";
     }
 
     function test() {
-      console.log('click me')
+      // console.log('click me')
     }
 
     function randomSort(a: number, b: number) {
-      return a === null || b === null ? NaN : Math.random() * a - b
+      return a === null || b === null ? NaN : Math.random() * a - b;
     }
 
     return {
@@ -301,10 +308,10 @@ export default defineComponent({
       updateConfig,
       test,
       console,
-      randomSort
-    }
-  }
-})
+      randomSort,
+    };
+  },
+});
 </script>
 
 <style scoped>
